@@ -1,5 +1,6 @@
 import requests
 import time
+import json
 from bs4 import BeautifulSoup
 
 url = 'https://www.eerstekamer.nl/stemmingen_per_vergaderdag'
@@ -55,7 +56,7 @@ while url:
                             if 'Hamerstuk' in stemming:
                                 aantekening = f.find_all("div", {"class": "openclose"})[0].text.strip().replace('aantekening gevraagd: ', '').replace(' en', ',').split(",")
                                 sp = {"aantekening": aantekening}
-                            s = {code: {"naam": titel, "datum": datum, "wet_url": url, "code": code, stemming.lower(): sp, "stemming_url": stemming_url}}
+                            s = {code: {"naam": titel, "uitslag": uitslag, "datum": datum, "wet_url": url, "code": code, stemming.lower(): sp, "stemming_url": stemming_url}}
                             c.append(s)
                     except:
                         continue
